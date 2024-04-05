@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ver Perros</title>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css" />
+    <link rel="stylesheet" type="text/css" href="css/headerFooter.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .raza-container {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 150px;
+        padding: 20px 0;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+
+      /* Estilos para la tabla */
+      .sortable {
+        width: 100%;
+        max-width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+      }
+
+      .sortable tr:nth-child(odd) {
+        background-color: #f2f2f2;
+      }
+
+      .sortable tr:nth-child(even) {
+        background-color: #ffffff;
+      }
+
+      /* Estilos mejorados para la cabecera de la tabla */
+      .sortable th {
+        background-color: #4caf50; /* Fondo verde */
+        color: white; /* Texto blanco */
+        padding: 12px;
+        font-weight: bold;
+        text-align: left;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .sortable th:hover {
+        transform: scale(1.1);
+      }
+
+      .sortable td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 10px;
+        transition: transform 0.2s ease-in-out;
+        vertical-align: middle;
+      }
+
+      /* Estilos para las imágenes en las celdas */
+      .sortable td img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      /* Efecto de transformación para las imágenes */
+      .sortable td img:hover {
+        transform: scale(3);
+      }
+
+      /* Estilos para mejorar la accesibilidad */
+      [aria-hidden="true"] {
+        display: none;
+      }
+
+      :focus {
+        outline: 3px solid blue;
+      }
+
+      @media screen and (max-width: 768px) {
+        .raza-container {
+          width: 95%;
+          padding: 10px;
+        }
+
+        .sortable {
+          font-size: 0.9em;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .raza-container {
+          width: 100%;
+          padding: 5px;
+        }
+
+        .sortable {
+          font-size: 0.8em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="nav-container">
+        <ul class="nav-links">
+          <li><a href="../ApiPerrosPerdidos/Api/perros.php">Perros</a></li>
+          <li><a href="perrosPerdidos.html">Perdidos</a></li>
+          <li><a href="perrosEncontrados.html">Encontrados</a></li>
+          <li><a href="perrosAdopcion.html">En Adopción</a></li>
+          <li><a href="../ApiPerrosPerdidos/Api/perfil.php">Perfil</a></li>
+          <li><a href="usuarios.html">Usuarios</a></li>
+          <li>
+            <a href="../ApiPerrosPerdidos/Api/publicaciones.php"
+              >Publicaciones</a
+            >
+          </li>
+          <li><a href="cerrarSesion.html">Cerrar Sesión</a></li>
+        </ul>
+      </div>
+    </header>
+    <div id="contenedorCabecera"></div>
+    <div class="contenido">
+      <h1 id="titulo">Ver Perros</h1>
+      <div class="raza-container">
+        <h2 class="titulo-2">Ver Perros</h2>
+        <form id="busqueda-form">
+          <label for="raza-select">Selecciona una raza:</label>
+          <select id="raza-select" name="raza">
+            <option value="todos">Elegir raza</option>
+          </select>
+          <button type="submit">Buscar</button>
+        </form>
+        <table class="sortable">
+          <thead>
+            <tr>
+              <th onclick="sortTable('Nombre')" class="sort-link">Nombre</th>
+              <th onclick="sortTable('Raza')" class="sort-link">Raza</th>
+              <th onclick="sortTable('Edad')" class="sort-link">Edad</th>
+              <th onclick="sortTable('Collar')" class="sort-link">Collar</th>
+              <th onclick="sortTable('Chip')" class="sort-link">Chip</th>
+              <th onclick="sortTable('Fecha Perdido')" class="sort-link">
+                Fecha Perdido
+              </th>
+              <th onclick="sortTable('Lugar Perdido')" class="sort-link">
+                Lugar Perdido
+              </th>
+              <th onclick="sortTable('Fecha Encontrado')" class="sort-link">
+                Fecha Encontrado
+              </th>
+              <th onclick="sortTable('Lugar Encontrado')" class="sort-link">
+                Lugar Encontrado
+              </th>
+              <th onclick="sortTable('Lugar')" class="sort-link">Lugar</th>
+              <th onclick="sortTable('Estado')" class="sort-link">Estado</th>
+              <th
+                onclick="sortTable('Fecha Última Actualización')"
+                class="sort-link"
+              >
+                Fecha Última Actualización
+              </th>
+              <th onclick="sortTable('Foto')" class="sort-link">Foto</th>
+              <th onclick="sortTable('Color')" class="sort-link">Color</th>
+              <th onclick="sortTable('Tamaño')" class="sort-link">Tamaño</th>
+              <th onclick="sortTable('Descripción')" class="sort-link">
+                Descripción
+              </th>
+              <th onclick="sortTable('Dueño')" class="sort-link">Dueño</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-perros-por-raza"></tbody>
+        </table>
+      </div>
+      <div>
+        <p id="error-message"></p>
+      </div>
+    </div>
+    <div id="contenedorPieDePagina"></div>
+    <script src="js/api/cabecera.js"></script>
+    <script>
+      // Función para ordenar la tabla por una columna específica
+      function sortTable(columnName) {
+        const table = document.querySelector("table");
+        const rows = Array.from(table.querySelectorAll("tbody tr"));
+
+        // Ordenar las filas según el valor de la columna seleccionada
+        rows.sort((a, b) => {
+          const cellA = a
+            .querySelector(`td:nth-child(${getColumnIndex(columnName)})`)
+            .innerText.toLowerCase();
+          const cellB = b
+            .querySelector(`td:nth-child(${getColumnIndex(columnName)})`)
+            .innerText.toLowerCase();
+          return cellA.localeCompare(cellB);
+        });
+
+        // Vaciar el contenido de la tabla
+        table.querySelector("tbody").innerHTML = "";
+
+        // Insertar las filas ordenadas en la tabla
+        rows.forEach((row) => {
+          table.querySelector("tbody").appendChild(row);
+        });
+      }
+
+      // Función para obtener el índice de columna por su nombre
+      function getColumnIndex(columnName) {
+        const table = document.querySelector("table");
+        const headers = Array.from(table.querySelectorAll("th"));
+        return (
+          headers.findIndex((header) => header.innerText === columnName) + 1
+        );
+      }
+
+      // Función para cargar las opciones de razas en el selector
+      function cargarRazas() {
+        fetch("../ApiPerrosPerdidos/Api/verPerros.php?getRazas")
+          .then((response) => response.json())
+          .then((data) => {
+            const razaSelect = document.getElementById("raza-select");
+            data.forEach((raza) => {
+              const option = document.createElement("option");
+              option.value = raza;
+              option.textContent = raza;
+              razaSelect.appendChild(option);
+            });
+          })
+          .catch((error) => console.log(error));
+      }
+
+      // Función para realizar la búsqueda de perros por raza
+      function buscarPerrosPorRaza(event) {
+        event.preventDefault();
+        const raza = document.getElementById("raza-select").value;
+        fetch(
+          `../ApiPerrosPerdidos/Api/verPerros.php?raza=${encodeURIComponent(
+            raza
+          )}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const tableBody = document.querySelector("#tabla-perros-por-raza");
+            tableBody.innerHTML = "";
+
+            data.forEach((perro) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                            <td>${perro.nombre}</td>
+                            <td>${perro.raza}</td>
+                            <td>${perro.edad}</td>
+                            <td>${perro.collar}</td>
+                            <td>${perro.chip}</td>
+                            <td>${perro.fechaPerdido}</td>
+                            <td>${perro.lugarPerdido}</td>
+                            <td>${perro.fechaEncontrado}</td>
+                            <td>${perro.lugarEncontrado}</td>
+                            <td>${perro.lugar}</td>
+                            <td>${perro.estado}</td>
+                            <td>${perro.fechaUltimaActualizacion}</td>
+                            <td class="foto-perro"><img src="../ApiPerrosPerdidos/Publico/fotos_perros/${perro.foto}" alt="Foto del perro" onmouseover="ampliarFoto(this)"></td>
+                            <td>${perro.color}</td>
+                            <td>${perro.tamano}</td>
+                            <td>${perro.descripcion}</td>
+                            <td>${perro.nombreDueno}</td>
+                        `;
+              tableBody.appendChild(row);
+            });
+          })
+          .catch((error) => console.log(error));
+      }
+
+      // Agregar eventos de click a las columnas para ordenar la tabla
+      const tableHeaders = document.querySelectorAll(".sort-link");
+      tableHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
+          sortTable(header.innerText);
+        });
+      });
+
+      // Cargar las opciones de razas al cargar la página
+      document.addEventListener("DOMContentLoaded", function () {
+        cargarRazas();
+      });
+
+      // Agregar evento de submit al formulario de búsqueda
+      const busquedaForm = document.getElementById("busqueda-form");
+      busquedaForm.addEventListener("submit", buscarPerrosPorRaza);
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("contenedorCabecera").innerHTML =
+          cargarCabecera("img/logo.png", "../ApiPerrosPerdidos/Api/perfil.php");
+        document.getElementById("contenedorPieDePagina").innerHTML =
+          cargarPieDePagina("img/logo.jpg");
+      });
+    </script>
+  </body>
+</html>

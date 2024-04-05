@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inicio Sesión</title>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css" />
+    <link rel="stylesheet" type="text/css" href="css/headerFooter.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .contenido {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+      .login-container {
+        max-width: 400px;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 150px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+      }
+      .form-group input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+      }
+      .form-group input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      .error-message {
+        color: red;
+        margin-bottom: 10px;
+      }
+      /* Estilos para mejorar la accesibilidad */
+      [aria-hidden="true"] {
+        display: none;
+      }
+
+      :focus {
+        outline: 3px solid blue;
+      }
+      @media screen and (max-width: 768px) {
+        .login-container {
+          max-width: 90%;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+
+        h1,
+        h2 {
+          font-size: 20px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        h1,
+        h2 {
+          font-size: 18px;
+        }
+
+        .form-group input,
+        .form-group input[type="submit"] {
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="nav-container">
+        <ul class="nav-links">
+          <li>
+            <a href="registro.html">Registro</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <div id="contenedorCabecera"></div>
+    <div class="contenido">
+      <h1 id="titulo">Iniciar Sesión</h1>
+      <div class="login-container">
+        <h2 class="titulo-2">Iniciar Sesión</h2>
+        <?php
+            // Verificar si se proporcionó un parámetro "error" en la URL
+            $errorMessage = '';
+            if (isset($_GET['error'])) {
+
+                // Verificar el valor del parámetro "error" y mostrar el mensaje de error correspondiente
+                switch ($_GET['error']) {
+                    case '1':
+                        $errorMessage = 'Correo electrónico o contraseña incorrectos.';
+                        break;
+                    default:
+                        $errorMessage = 'Error desconocido al iniciar sesión.';
+                        break;
+                }
+            }
+            ?>
+
+        <p class="error-message"><?php echo $errorMessage; ?></p>
+
+        <form action="../ApiPerrosPerdidos/auth.php" method="POST">
+          <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Iniciar Sesión" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="contenedorPieDePagina"></div>
+    <script src="js/api/cabecera.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("contenedorCabecera").innerHTML =
+          cargarCabecera("img/logo.png", "../ApiPerrosPerdidos/Api/perfil.php");
+        document.getElementById("contenedorPieDePagina").innerHTML =
+          cargarPieDePagina("img/logo.jpg");
+      });
+    </script>
+  </body>
+</html>

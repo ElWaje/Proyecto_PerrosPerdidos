@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Usuarios</title>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css" />
+    <link rel="stylesheet" type="text/css" href="css/headerFooter.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+      .users-container {
+        max-width: 800px;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 150px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+      }
+      th {
+        background-color: #f5f5f5;
+      }
+      .profile-photo {
+        width: 50px;
+        height: 50px;
+        transition: transform 0.3s ease;
+      }
+      .profile-photo:hover {
+        transform: scale(2);
+      }
+      /* Estilos para mejorar la accesibilidad */
+      [aria-hidden="true"] {
+        display: none;
+      }
+
+      :focus {
+        outline: 3px solid blue;
+      }
+      @media screen and (max-width: 768px) {
+        .users-container {
+          overflow-x: auto;
+        }
+
+        table,
+        th,
+        td {
+          font-size: 0.9em;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        th,
+        td {
+          font-size: 0.8em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="nav-container">
+        <ul class="nav-links">
+          <li><a href="../ApiPerrosPerdidos/Api/perros.php">Perros</a></li>
+          <li><a href="verPerros.html">Ver Perros</a></li>
+          <li><a href="perrosPerdidos.html">Perdidos</a></li>
+          <li><a href="perrosEncontrados.html">Encontrados</a></li>
+          <li><a href="perrosAdopcion.html">En Adopción</a></li>
+          <li><a href="../ApiPerrosPerdidos/Api/perfil.php">Perfil</a></li>
+          <li>
+            <a href="../ApiPerrosPerdidos/Api/publicaciones.php"
+              >Publicaciones</a
+            >
+          </li>
+          <li><a href="cerrarSesion.html">Cerrar Sesión</a></li>
+        </ul>
+      </div>
+    </header>
+    <div id="contenedorCabecera"></div>
+    <div class="contenido">
+      <h1 id="titulo">Usuarios</h1>
+      <div class="users-container">
+        <h2 class="titulo-2">Usuarios</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Correo Electrónico</th>
+              <th>Teléfono</th>
+              <th>Rol</th>
+              <th>Foto de Perfil</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí se mostrarán los usuarios -->
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p id="error-message"></p>
+      </div>
+    </div>
+    <div id="contenedorPieDePagina"></div>
+    <script src="js/api/cabecera.js"></script>
+    <script>
+      // Obtener los usuarios mediante una solicitud AJAX
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "../ApiPerrosPerdidos/Api/usuarios.php", true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          try {
+            var usuarios = JSON.parse(xhr.responseText);
+
+            // Si el servidor devuelve un error
+            if (usuarios.error) {
+              console.error(usuarios.error);
+              document.getElementById("error-message").textContent =
+                "Error al cargar los usuarios.";
+              return;
+            }
+
+            var tbody = document.querySelector("tbody");
+            usuarios.forEach(function (usuario) {
+              var row = document.createElement("tr");
+              var idCell = document.createElement("td");
+              var nombreCell = document.createElement("td");
+              var correoCell = document.createElement("td");
+              var telefonoCell = document.createElement("td");
+              var rolCell = document.createElement("td");
+              var fotoCell = document.createElement("td");
+
+              idCell.textContent = usuario.id;
+              nombreCell.textContent = usuario.nombre;
+              correoCell.textContent = usuario.correoElectronico;
+              telefonoCell.textContent = usuario.telefono;
+              rolCell.textContent = usuario.rol;
+
+              if (usuario.visible === "no") {
+                correoCell.textContent = "oculto";
+                telefonoCell.textContent = "oculto";
+              }
+
+              var foto = document.createElement("img");
+              foto.src =
+                "../ApiPerrosPerdidos/Publico/photos/" + usuario.fotoPerfil;
+              foto.alt = "Foto de perfil de " + usuario.nombre;
+              foto.classList.add("profile-photo");
+
+              fotoCell.appendChild(foto);
+
+              row.appendChild(idCell);
+              row.appendChild(nombreCell);
+              row.appendChild(correoCell);
+              row.appendChild(telefonoCell);
+              row.appendChild(rolCell);
+              row.appendChild(fotoCell);
+
+              tbody.appendChild(row);
+            });
+          } catch (e) {
+            console.error("Error al analizar la respuesta:", e);
+            document.getElementById("error-message").textContent =
+              "Error al cargar los usuarios.";
+          }
+        } else {
+          console.error("Error al obtener los usuarios.");
+          document.getElementById("error-message").textContent =
+            "Error al cargar los usuarios.";
+        }
+      };
+      xhr.send();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("contenedorCabecera").innerHTML =
+          cargarCabecera("img/logo.png", "../ApiPerrosPerdidos/Api/perfil.php");
+        document.getElementById("contenedorPieDePagina").innerHTML =
+          cargarPieDePagina("img/logo.jpg");
+      });
+    </script>
+  </body>
+</html>

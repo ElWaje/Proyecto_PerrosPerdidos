@@ -1,0 +1,347 @@
+.header {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+}
+
+#contenedorCabecera {
+    width: 100%;
+    padding: 0.1em;
+}
+
+.primero {
+    background-color: #1e88e5;
+    padding: 1.5em;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.banner {
+    padding: 1.5em;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    padding: 2.2em;
+    display: flex;
+    align-items: center;
+    margin-left: 3em;
+    margin-right: 10em;
+}
+
+.logo img {
+    height: 10em;
+    width: auto;
+    border-radius: 50%;
+    border: 0.3125em solid #fff;
+    box-shadow: 0 0 0.9375em rgba(0, 0, 0, 0.6);
+}
+
+.primero h1 {
+    font-family: 'Lato', cursive;
+    font-size: 1.5em;
+    margin-bottom: 0.1em;
+    color: #ffffff;
+}
+
+.primero .title {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.2em;
+    margin-bottom: 0.3em;
+    color: #ffd600;
+}
+
+.primero .slogan {
+    font-family: 'Montserrat', cursive;
+    font-size: 1.4em;
+    margin-bottom: 0.1em;
+    color: #ffff8d;
+}
+
+.primero .project-info {
+    font-family: 'Montserrat', cursive;
+    font-size: 1.2em;
+    margin-bottom: 0.1em;
+    color: #ffff8d;
+}
+
+.audio-container {
+    background: linear-gradient(45deg, #6DD5FA, #FF758C);
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    transition: all 0.3s ease;
+}
+
+.audio-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);
+}
+
+audio {
+    width: 100%;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-volume-slider,
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display,
+audio::-webkit-media-controls-seek-back-button,
+audio::-webkit-media-controls-seek-forward-button,
+audio::-webkit-media-controls-fullscreen-button,
+audio::-webkit-media-controls-mute-button {
+    color: #FF758C;
+}
+
+audio::-webkit-slider-thumb {
+    background: #FF758C;
+    border-radius: 50%;
+}
+
+audio::-webkit-slider-runnable-track {
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+/* Estilos para navegadores que no sean WebKit */
+audio {
+    background-color: #6DD5FA;
+    color: white;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.nav-container {
+    background-color: #1e88e5;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.nav-links li {
+    list-style-type: none;
+    margin-right: 1.25em;
+    display: inline-block;
+}
+
+.nav-links li a {
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+    text-decoration: none;
+    color: #ffd600;
+    font-family: 'Montserrat', cursive;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.nav-links li a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.footer {
+    background-color: #1e88e5;
+    padding: 0.15em;
+    color: #ffffff;
+    font-family: 'Lato', cursive;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+}
+
+.footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer p {
+    margin: 0;
+    color: #ffffff;
+    font-family: 'Lato', cursive;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer img {
+    width: 2.125em;
+    height: 2.125em;
+    border-radius: 50%;
+    margin-left: 12.5em;
+}
+
+/* Media Queries para pantallas entre 924px y 769px */
+@media screen and (min-width: 769px) and (max-width: 924px) {
+
+    .header,
+    .primero,
+    .footer {
+        position: relative;
+        flex-direction: column;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    .primero {
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+    }
+
+    .banner,
+    .logo {
+        padding: 0.5em;
+        margin: 0;
+    }
+
+    .logo img {
+        height: 7em;
+    }
+
+    .primero h1,
+    .primero .title,
+    .primero .slogan,
+    .primero .project-info {
+        font-size: 1.3em;
+        margin: 0.3em 0;
+    }
+
+    .nav-links li a {
+        font-size: 1.1em;
+    }
+}
+
+/* Media Queries para Tablets */
+@media screen and (max-width: 768px) {
+
+    .header,
+    .primero,
+    .footer {
+        position: relative;
+        flex-direction: column;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    .primero {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.75em;
+    }
+
+    .banner,
+    .logo {
+        padding: 0.5em;
+        margin: 0;
+    }
+
+    .logo img {
+        height: 6em;
+    }
+
+    .primero h1,
+    .primero .title,
+    .primero .slogan,
+    .primero .project-info {
+        font-size: 1.2em;
+        margin: 0.25em 0;
+    }
+
+    .nav-links li a {
+        font-size: 1em;
+    }
+}
+
+/* Media Queries para Móviles */
+@media screen and (max-width: 480px) {
+
+    .header,
+    .primero,
+    .footer {
+        padding: 3px 0;
+    }
+
+    .primero {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5em;
+    }
+
+    .banner,
+    .logo {
+        padding: 0.25em;
+        margin: 0;
+    }
+
+    .logo img {
+        height: 4em;
+    }
+
+    .primero h1,
+    .primero .title,
+    .primero .slogan,
+    .primero .project-info {
+        font-size: 1em;
+        margin: 0.15em 0;
+    }
+
+    .nav-links li a {
+        font-size: 0.9em;
+    }
+
+    .footer img {
+        height: 1.5em;
+    }
+}
+
+/* Media Queries para pantallas menores de 361px */
+@media screen and (max-width: 360px) {
+    .footer {
+        padding: 5px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer img {
+        height: 1.2em;
+        margin: 5px 0;
+    }
+
+    .footer .footer-content {
+        margin-top: 5px;
+    }
+
+    .footer p {
+        font-size: 0.8em;
+        text-align: center;
+    }
+}

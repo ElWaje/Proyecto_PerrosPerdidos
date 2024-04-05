@@ -1,0 +1,156 @@
+<?php session_start() ?>
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cerrar Sesión</title>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css" />
+    <link rel="stylesheet" type="text/css" href="css/headerFooter.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 150px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+      .titulo-2 {
+        color: #d00e19;
+      }
+      p {
+        margin: 10px 0;
+      }
+      .button-container {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .button-container button {
+        padding: 15px 30px;
+        font-size: 1.2em;
+        background-color: #d32f2f;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .button-container button:hover {
+        background-color: #b71c1c;
+      }
+      button:focus,
+      a:focus {
+        outline: 2px solid #000;
+      }
+      /* Estilos para mejorar la accesibilidad */
+      [aria-hidden="true"] {
+        display: none;
+      }
+
+      :focus {
+        outline: 3px solid blue;
+      }
+      @media screen and (max-width: 768px) {
+        .container {
+          max-width: 90%;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+
+        h1,
+        h2 {
+          font-size: 20px;
+        }
+
+        .button-container button {
+          padding: 12px 24px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        h1,
+        h2 {
+          font-size: 18px;
+        }
+
+        .button-container button {
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="nav-container">
+        <ul class="nav-links">
+          <li><a href="../ApiPerrosPerdidos/Api/perros.php">Perros</a></li>
+          <li><a href="verPerros.html">Ver Perros</a></li>
+          <li><a href="perrosPerdidos.html">Perdidos</a></li>
+          <li><a href="perrosEncontrados.html">Encontrados</a></li>
+          <li><a href="perrosAdopcion.html">En Adopción</a></li>
+          <li><a href="../ApiPerrosPerdidos/Api/perfil.php">Perfil</a></li>
+          <li><a href="usuarios.html">Usuarios</a></li>
+          <li>
+            <a href="../ApiPerrosPerdidos/Api/publicaciones.php"
+              >Publicaciones</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+    <div id="contenedorCabecera"></div>
+    <div class="contenido">
+      <h1 id="titulo">Cerrar Sesión</h1>
+      <div class="container">
+        <h2 class="titulo-2">Cerrar Sesión</h2>
+
+        <p>¿Estás seguro de que deseas cerrar sesión?</p>
+
+        <div class="button-container">
+          <button id="btnCerrarSesion">Cerrar Sesión</button>
+        </div>
+      </div>
+      <div>
+        <p id="error-message"></p>
+      </div>
+    </div>
+    <div id="contenedorPieDePagina"></div>
+    <script src="js/api/cabecera.js"></script>
+    <script src="https://cdn.rawgit.com/axios/axios/master/dist/axios.min.js"></script>
+    <script>
+      function cerrarSesion() {
+        axios
+          .post("../ApiPerrosPerdidos/Api/cerrarSesion.php")
+          .then(function (response) {
+            console.log("Sesión cerrada exitosamente");
+            // Mostrar mensaje o ventana flotante
+            alert("Sesión cerrada exitosamente");
+            window.location.href = "inicioSesion.html";
+          })
+          .catch(function (error) {
+            console.error("Error al cerrar sesión:", error);
+          });
+      }
+
+      document
+        .getElementById("btnCerrarSesion")
+        .addEventListener("click", function () {
+          cerrarSesion();
+        });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("contenedorCabecera").innerHTML =
+          cargarCabecera("img/logo.png", "../ApiPerrosPerdidos/Api/perfil.php");
+        document.getElementById("contenedorPieDePagina").innerHTML =
+          cargarPieDePagina("img/logo.jpg");
+      });
+    </script>
+  </body>
+</html>
