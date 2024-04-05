@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../Cliente/css/estilos.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../Cliente/css/headerFooter.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .contenido {
+        background-color: #f5f5f5;
+      }
+
+      .primero .title {
+        font-family: "Pacifico", cursive;
+        font-size: 2.2em;
+        margin-bottom: 0.3em;
+        color: #ffd600;
+      }
+
+      #titulo {
+        font-size: 2em;
+        color: #ff0000;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        font-family: "Pacifico", cursive;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 25vh;
+        margin: 0;
+        text-align: center;
+      }
+
+      .cube-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        margin-bottom: 100px;
+        height: 600px;
+        perspective: 1000px;
+      }
+
+      .cube-wrapper {
+        width: 400px;
+        height: 400px;
+        transform-style: preserve-3d;
+        transition: transform 0.8s;
+        transform: rotateY(0deg) rotateX(0deg);
+        cursor: pointer;
+      }
+
+      .cube {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .front {
+        background-color: #f7e820;
+        transform: translateZ(200px);
+      }
+
+      .back {
+        background-color: #f82fc3;
+        transform: translateZ(-200px) rotateY(180deg);
+      }
+
+      .right {
+        background-color: #2196f3;
+        transform: translateX(200px) rotateY(90deg);
+      }
+
+      .left {
+        background-color: #f44336;
+        transform: translateX(-200px) rotateY(-90deg);
+      }
+
+      .top {
+        background-image: url("../../Cliente/img/logo.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: white;
+        transform: translateY(-200px) rotateX(90deg);
+      }
+
+      .bottom {
+        background-image: url("../../Cliente/img/logo.jpg");
+        background-size: cover;
+        transform: translateY(200px) rotateX(-90deg);
+      }
+
+      .titulo-3 {
+        font-size: 32px;
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .admin-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+      }
+
+      .opciones-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .opcion {
+        cursor: pointer;
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        margin: 0 10px;
+      }
+
+      .opcion:hover {
+        background-color: #45a049;
+      }
+
+      .opcion:active {
+        background-color: #3e8e41;
+      }
+
+      .controles-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+
+      .control {
+        cursor: pointer;
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        margin: 0 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s;
+      }
+
+      .control:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      }
+
+      .control:active {
+        background-color: #3e8e41;
+        transform: translateY(2px);
+        box-shadow: none;
+      }
+
+      .controles-cubo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .control-arriba {
+        margin-bottom: 10px;
+      }
+
+      .control-izquierda {
+        margin-right: 10px;
+      }
+
+      .control-derecha {
+        margin-left: 10px;
+        margin-right: 70px;
+      }
+
+      .control-abajo {
+        margin-top: 10px;
+      }
+
+      /* Estilos para mejorar la accesibilidad */
+      [aria-hidden="true"] {
+        display: none;
+      }
+
+      :focus {
+        outline: 3px solid blue;
+      }
+
+      /* Media Query para pantallas hasta 768px (Tablets) */
+      @media screen and (max-width: 768px) {
+        .cube-container {
+          height: 500px;
+        }
+
+        .cube-wrapper {
+          width: 300px;
+          height: 300px;
+        }
+
+        .cube {
+          font-size: 20px;
+        }
+      }
+
+      /* Media Query para pantallas hasta 480px (Móviles) */
+      @media screen and (max-width: 480px) {
+        .cube-container {
+          height: 400px;
+        }
+
+        .cube-wrapper {
+          width: 200px;
+          height: 200px;
+        }
+
+        .cube {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="nav-container">
+        <ul class="nav-links">
+          <li><a href="perfil.php">Perfil</a></li>
+          <li><a href="../../Cliente/cerrarSesion.html">Cerrar Sesión</a></li>
+        </ul>
+      </div>
+    </header>
+    <div id="contenedorCabecera"></div>
+    <div class="contenido">
+      <h1 id="titulo">Panel de Administración</h1>
+      <h2 class="titulo-2">Panel de Administrador</h2>
+      <div class="admin-container">
+        <div class="controles-container">
+          <div class="controles-cubo-container">
+            <div class="control-izquierda">
+              <div class="control" onclick="girarIzquierda()">◀</div>
+            </div>
+            <div class="controles-cubo">
+              <div class="control-arriba">
+                <div class="control" onclick="girarArriba()">▲</div>
+              </div>
+              <div class="control-abajo">
+                <div class="control" onclick="girarAbajo()">▼</div>
+              </div>
+            </div>
+            <div class="control-derecha">
+              <div class="control" onclick="girarDerecha()">▶</div>
+            </div>
+          </div>
+        </div>
+        <div class="cube-container">
+          <div class="cube-wrapper">
+            <div class="cube front">
+              <h2 class="titulo-3">Usuarios</h2>
+              <div class="opciones-container">
+                <div
+                  class="opcion"
+                  data-action="crear"
+                  data-controller="Usuario"
+                >
+                  Crear
+                </div>
+                <div
+                  class="opcion"
+                  data-action="editar"
+                  data-controller="Usuario"
+                >
+                  Editar
+                </div>
+              </div>
+              <div class="opciones-container">
+                <div
+                  class="opcion"
+                  data-action="borrar"
+                  data-controller="Usuario"
+                >
+                  Borrar
+                </div>
+                <div
+                  class="opcion"
+                  data-action="mostrar"
+                  data-controller="Usuario"
+                >
+                  Mostrar
+                </div>
+              </div>
+            </div>
+            <div class="cube back">
+              <h2 class="titulo-3">Perros</h2>
+              <div class="opciones-container">
+                <div class="opcion" data-action="crear" data-controller="Perro">
+                  Crear
+                </div>
+                <div
+                  class="opcion"
+                  data-action="editar"
+                  data-controller="Perro"
+                >
+                  Editar
+                </div>
+              </div>
+              <div class="opciones-container">
+                <div
+                  class="opcion"
+                  data-action="borrar"
+                  data-controller="Perro"
+                >
+                  Borrar
+                </div>
+                <div
+                  class="opcion"
+                  data-action="mostrar"
+                  data-controller="Perro"
+                >
+                  Mostrar
+                </div>
+              </div>
+            </div>
+            <div class="cube right">
+              <h2 class="titulo-3">Publicaciones</h2>
+              <div class="opciones-container">
+                <div
+                  class="opcion"
+                  data-action="crear"
+                  data-controller="Publicacion"
+                >
+                  Crear
+                </div>
+                <div
+                  class="opcion"
+                  data-action="editar"
+                  data-controller="Publicacion"
+                >
+                  Editar
+                </div>
+              </div>
+              <div class="opciones-container">
+                <div
+                  class="opcion"
+                  data-action="borrar"
+                  data-controller="Publicacion"
+                >
+                  Borrar
+                </div>
+                <div
+                  class="opcion"
+                  data-action="mostrar"
+                  data-controller="Publicacion"
+                >
+                  Mostrar
+                </div>
+              </div>
+            </div>
+            <div class="cube left">
+              <h2 class="titulo-3">Comentarios</h2>
+              <div class="opciones-container">
+                <div
+                  class="opcion"
+                  data-action="crear"
+                  data-controller="Comentario"
+                >
+                  Crear
+                </div>
+                <div
+                  class="opcion"
+                  data-action="editar"
+                  data-controller="Comentario"
+                >
+                  Editar
+                </div>
+              </div>
+              <div class="opciones-container">
+                <div
+                  class="opcion"
+                  data-action="borrar"
+                  data-controller="Comentario"
+                >
+                  Borrar
+                </div>
+                <div
+                  class="opcion"
+                  data-action="mostrar"
+                  data-controller="Comentario"
+                >
+                  Mostrar
+                </div>
+              </div>
+            </div>
+            <div class="cube top"></div>
+            <div class="cube bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="contenedorPieDePagina"></div>
+    <script src="../../Cliente/js/api/cabecera.js"></script>
+    <!-- Importar la librería Axios (hay que tenerla instalada) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../Cliente/js/api/admin.js"></script>
+    <script>
+      var cubo = document.querySelector(".cube-wrapper");
+
+      function girarDerecha() {
+        cubo.style.transform += "rotateY(90deg)";
+      }
+
+      function girarIzquierda() {
+        cubo.style.transform += "rotateY(-90deg)";
+      }
+
+      function girarArriba() {
+        cubo.style.transform += "rotateX(-90deg)";
+      }
+
+      function girarAbajo() {
+        cubo.style.transform += "rotateX(90deg)";
+      }
+    </script>
+    <script>
+      // Obtén todos los botones de opción
+      var opciones = document.querySelectorAll(".opcion");
+
+      // Agregar un event listener a cada botón de opción
+      opciones.forEach(function (opcion) {
+        opcion.addEventListener("click", function () {
+          // Obtener la acción y el controlador del botón de opción
+          var action = opcion.dataset.action;
+          var controller = opcion.dataset.controller;
+
+          // Construir la URL del controlador y la acción
+          var url =
+            controller +
+            "/" +
+            action +
+            controller.charAt(0).toUpperCase() +
+            controller.slice(1) +
+            ".php";
+
+          // Redireccionar a la URL
+          window.location.href = url;
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("contenedorCabecera").innerHTML =
+          cargarCabecera("../../Cliente/img/logo.png", "perfil.php");
+        document.getElementById("contenedorPieDePagina").innerHTML =
+          cargarPieDePagina("../../Cliente/img/logo.jpg");
+      });
+    </script>
+  </body>
+</html>
